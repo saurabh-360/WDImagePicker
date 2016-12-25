@@ -22,7 +22,8 @@ and run `pod install`
 ### Sample Code
 
 ```swift
-self.imagePicker = WDImagePicker()
+self.imagePicker = WDImagePicker() //default source type is PhotoLibrary
+self.imagePicker = WDImagePicker.init(withSourceType: .Camera) //use this for camera
 self.imagePicker.cropSize = CGSizeMake(280, 90)
 self.imagePicker.delegate = self
 
