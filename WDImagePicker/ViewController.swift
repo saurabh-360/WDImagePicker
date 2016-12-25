@@ -78,7 +78,14 @@ class ViewController: UIViewController, WDImagePickerDelegate, UIImagePickerCont
             self.dismissViewControllerAnimated(true, completion: nil)
         }))
         
-        self.presentViewController(actionSheet, animated: true, completion: nil)
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            self.popoverController = UIPopoverController(contentViewController: actionSheet)
+            self.popoverController.presentPopoverFromRect(button.frame, inView: self.view, permittedArrowDirections: .Any, animated: true)
+        } else {
+            self.presentViewController(actionSheet, animated: true, completion: nil)
+        }
+        
+//        self.presentViewController(actionSheet, animated: true, completion: nil)
 
     }
 
@@ -109,8 +116,12 @@ class ViewController: UIViewController, WDImagePickerDelegate, UIImagePickerCont
             self.dismissViewControllerAnimated(true, completion: nil)
         }))
         
-        self.presentViewController(actionSheet, animated: true, completion: nil)
-
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            self.popoverController = UIPopoverController(contentViewController: actionSheet)
+            self.popoverController.presentPopoverFromRect(button.frame, inView: self.view, permittedArrowDirections: .Any, animated: true)
+        } else {
+            self.presentViewController(actionSheet, animated: true, completion: nil)
+        }
     }
 
     func imagePicker(imagePicker: WDImagePicker, pickedImage: UIImage) {
