@@ -27,16 +27,16 @@ internal class WDCropBorderView: UIView {
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
 
-        CGContextSetStrokeColorWithColor(context,
+        CGContextSetStrokeColorWithColor(context!,
             UIColor(red: 1, green: 1, blue: 1, alpha: 0.5).CGColor)
-        CGContextSetLineWidth(context, 1.5)
-        CGContextAddRect(context, CGRectMake(kHandleDiameter / 2, kHandleDiameter / 2,
+        CGContextSetLineWidth(context!, 1.5)
+        CGContextAddRect(context!, CGRectMake(kHandleDiameter / 2, kHandleDiameter / 2,
             rect.size.width - kHandleDiameter, rect.size.height - kHandleDiameter))
-        CGContextStrokePath(context)
+        CGContextStrokePath(context!)
 
-        CGContextSetRGBFillColor(context, 1, 1, 1, 0.95)
+        CGContextSetRGBFillColor(context!, 1, 1, 1, 0.95)
         for handleRect in calculateAllNeededHandleRects() {
-            CGContextFillEllipseInRect(context, handleRect)
+            CGContextFillEllipseInRect(context!, handleRect)
         }
     }
 

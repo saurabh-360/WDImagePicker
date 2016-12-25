@@ -66,16 +66,20 @@ class ViewController: UIViewController, WDImagePickerDelegate, UIImagePickerCont
     }
 
     func showPicker(button: UIButton) {
-        self.imagePicker = WDImagePicker()
-        self.imagePicker.cropSize = CGSizeMake(280, 280)
-        self.imagePicker.delegate = self
+        let actionSheet = UIAlertController.init(title: "Please choose a source type", message: nil, preferredStyle: .ActionSheet)
+        actionSheet.addAction(UIAlertAction.init(title: "Take Photo", style: UIAlertActionStyle.Default, handler: { (action) in
+            self.showCamera(button, isCropAreaResizable: false)
+        }))
+        actionSheet.addAction(UIAlertAction.init(title: "Choose Photo", style: UIAlertActionStyle.Default, handler: { (action) in
+            self.showPhotoGallery(button, isCropAreaResizable: false)
+        }))
+        
+        actionSheet.addAction(UIAlertAction.init(title: "Cancel", style: UIAlertActionStyle.Default, handler: { (action) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }))
+        
+        self.presentViewController(actionSheet, animated: true, completion: nil)
 
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            self.popoverController = UIPopoverController(contentViewController: self.imagePicker.imagePickerController)
-            self.popoverController.presentPopoverFromRect(button.frame, inView: self.view, permittedArrowDirections: .Any, animated: true)
-        } else {
-            self.presentViewController(self.imagePicker.imagePickerController, animated: true, completion: nil)
-        }
     }
 
     func showNormalPicker(button: UIButton) {
@@ -93,17 +97,20 @@ class ViewController: UIViewController, WDImagePickerDelegate, UIImagePickerCont
     }
 
     func showResizablePicker(button: UIButton) {
-        self.imagePicker = WDImagePicker()
-        self.imagePicker.cropSize = CGSizeMake(280, 280)
-        self.imagePicker.delegate = self
-        self.imagePicker.resizableCropArea = true
+        let actionSheet = UIAlertController.init(title: "Please choose a source type", message: nil, preferredStyle: .ActionSheet)
+        actionSheet.addAction(UIAlertAction.init(title: "Take Photo", style: UIAlertActionStyle.Default, handler: { (action) in
+            self.showCamera(button, isCropAreaResizable: true)
+        }))
+        actionSheet.addAction(UIAlertAction.init(title: "Choose Photo", style: UIAlertActionStyle.Default, handler: { (action) in
+            self.showPhotoGallery(button, isCropAreaResizable: true)
+        }))
+        
+        actionSheet.addAction(UIAlertAction.init(title: "Cancel", style: UIAlertActionStyle.Default, handler: { (action) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }))
+        
+        self.presentViewController(actionSheet, animated: true, completion: nil)
 
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            self.popoverController = UIPopoverController(contentViewController: self.imagePicker.imagePickerController)
-            self.popoverController.presentPopoverFromRect(button.frame, inView: self.view, permittedArrowDirections: .Any, animated: true)
-        } else {
-            self.presentViewController(self.imagePicker.imagePickerController, animated: true, completion: nil)
-        }
     }
 
     func imagePicker(imagePicker: WDImagePicker, pickedImage: UIImage) {
@@ -128,5 +135,37 @@ class ViewController: UIViewController, WDImagePickerDelegate, UIImagePickerCont
             picker.dismissViewControllerAnimated(true, completion: nil)
         }
     }
+    
+    func showPhotoGallery(button : UIButton, isCropAreaResizable : Bool){
+        
+        self.imagePicker = WDImagePicker.init(withSourceType: .PhotoLibrary)
+        self.imagePicker.cropSize = CGSizeMake(280, 280)
+        self.imagePicker.delegate = self
+        self.imagePicker.resizableCropArea = isCropAreaResizable
+        
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            self.popoverController = UIPopoverController(contentViewController: self.imagePicker.imagePickerController)
+            self.popoverController.presentPopoverFromRect(button.frame, inView: self.view, permittedArrowDirections: .Any, animated: true)
+        } else {
+            self.presentViewController(self.imagePicker.imagePickerController, animated: true, completion: nil)
+        }
+        
+    }
+    
+    func showCamera(button : UIButton, isCropAreaResizable : Bool){
+        self.imagePicker = WDImagePicker.init(withSourceType: .Camera)
+        self.imagePicker.cropSize = CGSizeMake(280, 280)
+        self.imagePicker.delegate = self
+        self.imagePicker.resizableCropArea = isCropAreaResizable
+        
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            self.popoverController = UIPopoverController(contentViewController: self.imagePicker.imagePickerController)
+            self.popoverController.presentPopoverFromRect(button.frame, inView: self.view, permittedArrowDirections: .Any, animated: true)
+        } else {
+            self.presentViewController(self.imagePicker.imagePickerController, animated: true, completion: nil)
+        }
+    }
+    
+    
 }
 

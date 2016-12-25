@@ -187,7 +187,7 @@ internal class WDImageCropView: UIView, UIScrollViewDelegate {
         visibleRect = CGRectApplyAffineTransform(visibleRect, rectTransform);
 
         // finally crop image
-        let imageRef = CGImageCreateWithImageInRect(imageToCrop!.CGImage, visibleRect)
+        let imageRef = CGImageCreateWithImageInRect(imageToCrop!.CGImage!, visibleRect)
         let result = UIImage(CGImage: imageRef!, scale: imageToCrop!.scale,
             orientation: imageToCrop!.imageOrientation)
 

@@ -107,13 +107,13 @@ internal class WDImageCropViewController: UIViewController {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let gradient = CGGradientCreateWithColorComponents(colorSpace, components, nil, 2)
 
-        CGContextDrawLinearGradient(context, gradient, CGPointMake(0, 0), CGPointMake(0, 54), [])
+        CGContextDrawLinearGradient(context!, gradient!, CGPointMake(0, 0), CGPointMake(0, 54), [])
 
         let viewImage = UIGraphicsGetImageFromCurrentImageContext()
 
         UIGraphicsEndImageContext()
 
-        return viewImage
+        return viewImage!
     }
 
     private func setupToolbar() {

@@ -24,13 +24,21 @@ import UIKit
         return _imagePickerController
     }
     
-    override public init() {
+//    override public init() {
+//        super.init()
+//
+//        self.cropSize = CGSizeMake(320, 320)
+//        _imagePickerController = UIImagePickerController()
+//        _imagePickerController.delegate = self
+//        _imagePickerController.sourceType = .PhotoLibrary
+//    }
+    
+    public init(withSourceType sourceType : UIImagePickerControllerSourceType){
         super.init()
-
         self.cropSize = CGSizeMake(320, 320)
         _imagePickerController = UIImagePickerController()
         _imagePickerController.delegate = self
-        _imagePickerController.sourceType = .PhotoLibrary
+        _imagePickerController.sourceType = sourceType
     }
 
     private func hideController() {
